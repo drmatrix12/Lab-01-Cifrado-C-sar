@@ -1,0 +1,36 @@
+## Objetivo
+Entender confidencialidad cifrando y descifrando 
+archivos reales con AES-256-CBC en Kali Linux.
+
+## Herramientas
+- Kali Linux
+- OpenSSL
+
+## Lo que hice
+
+### Paso 1 — Crear archivo con datos sensibles
+Creé un archivo con credenciales simuladas para cifrar.
+
+### Paso 2 — Cifrar con AES-256-CBC
+Cifré el archivo usando OpenSSL con clave "MiClaveSecreta2025".
+
+### Paso 3 — Intentar leer el archivo cifrado
+Resultado: contenido ilegible — bytes cifrados sin sentido.
+
+### Paso 4 — Descifrar con clave correcta
+Resultado: archivo original recuperado perfectamente.
+
+### Paso 5 — Intentar descifrar con clave incorrecta
+Error obtenido:
+ossl_cipher_unpadblock:bad decrypt
+
+## Conclusión
+Sin la clave correcta AES-256 es imposible de descifrar.
+Este es el mismo algoritmo que usa el ransomware para
+cifrar archivos de víctimas — sin la clave del atacante,
+la recuperación es prácticamente imposible.
+
+## Conexión con SOC
+- Detectar cifrado no autorizado en la red es crítico
+- El ransomware usa AES para cifrar + RSA para proteger
+  la clave AES — combinación simétrica + asimétrica
