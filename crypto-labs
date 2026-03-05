@@ -1,0 +1,62 @@
+# Lab 01 — Cifrado César
+
+## Objetivo
+Entender por qué la criptografía histórica es débil y cómo 
+un ataque de fuerza bruta la rompe en segundos.
+
+## Herramientas
+- Kali Linux
+- Python3
+
+## Lo que hice
+
+### Paso 1 — Cifrar
+Cifré el mensaje "HOLAMUNDO" con shift 3 usando el algoritmo César.
+
+**Resultado:** HOLAMUNDO → `KRODPXQGR`
+
+Cada letra se desplazó 3 posiciones en el alfabeto:
+- H → K
+- O → R
+- L → O
+- A → D
+- M → P
+- U → X
+- N → Q
+- D → G
+- O → R
+
+### Paso 2 — Romper por fuerza bruta
+Probé los 25 shifts posibles hasta encontrar el mensaje original.
+
+**Resultado:** El mensaje apareció en Shift 3 — tercer intento.
+
+## Código usado
+```python
+# Cifrar
+msg = 'HOLAMUNDO'
+shift = 3
+cifrado = ''.join(chr((ord(c) - 65 + shift) % 26 + 65) for c in msg)
+print('Cifrado:', cifrado)
+
+# Romper por fuerza bruta
+cifrado = 'KRODPXQGR'
+for shift in range(1, 26):
+    dec = ''.join(chr((ord(c) - 65 - shift) % 26 + 65) for c in cifrado)
+    print(f'Shift {shift}: {dec}')
+```
+
+## Por qué es débil
+El cifrado César solo tiene 25 claves posibles.
+Una computadora las prueba todas en microsegundos.
+Eso se llama ataque de fuerza bruta — probar todas 
+las combinaciones hasta encontrar la correcta.
+
+## Diferencia con AES-256
+AES-256 tiene 2^256 claves posibles. Con toda la 
+potencia computacional del mundo tardarías más que 
+la edad del universo en romperlo por fuerza bruta.
+
+## Conclusión
+La criptografía moderna no depende del secreto del 
+algoritmo sino del tamaño y complejidad de la clave.
