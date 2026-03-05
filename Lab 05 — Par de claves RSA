@@ -1,0 +1,14 @@
+# Lab 05 — Par de claves RSA
+
+## Resultado
+- Generé par de claves RSA 2048 bits con OpenSSL
+- Cifré mensaje con clave pública → solo descifrable con privada
+- Sin clave privada: imposible recuperar el mensaje
+
+## Comando actualizado (OpenSSL 3.0+)
+rsautl está deprecado — usar pkeyutl en producción
+
+## Conclusión
+Clave pública = cualquiera puede cifrar para ti
+Clave privada = solo tú puedes descifrar
+Nunca compartir la clave privada — si se compromete, todo se compromete
