@@ -1,0 +1,28 @@
+# Lab 03 — Benchmark AES vs 3DES
+
+## Objetivo
+Comparar velocidad real de algoritmos simétricos para entender
+por qué AES reemplazó a 3DES en producción.
+
+## Herramientas
+- Kali Linux
+- OpenSSL speed
+
+## Resultados obtenidos
+
+| Algoritmo   | MB/s (8192 bytes) |
+|-------------|-------------------|
+| 3DES        | 37 MB/s           |
+| AES-256-CBC | 1,413 MB/s        |
+| AES-128-CBC | 1,837 MB/s        |
+
+## Conclusión
+AES-256 es 38 veces más rápido que 3DES y más seguro.
+3DES está oficialmente deprecado desde 2019 (NIST).
+Un servidor con miles de conexiones simultáneas no puede
+permitirse usar 3DES — el impacto en rendimiento es crítico.
+
+## Conexión con SOC
+Si detectas un servicio usando 3DES en producción es una
+vulnerabilidad que debe reportarse — no solo por seguridad
+sino por rendimiento. Buscar en Nmap: ssl-enum-ciphers.
