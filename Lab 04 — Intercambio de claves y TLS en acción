@@ -1,0 +1,38 @@
+# Lab 04 — Intercambio de claves y TLS en acción
+
+## Objetivo
+Entender por qué el cifrado simétrico solo no es suficiente
+y cómo TLS combina simétrico + asimétrico en la práctica.
+
+## Herramientas
+- Kali Linux
+- curl -v
+
+## Resultado del análisis a google.com
+
+| Parámetro | Valor |
+|---|---|
+| Versión TLS | TLSv1.3 |
+| Cifrado de sesión | AES-256-GCM (simétrico) |
+| Intercambio de claves | X25519MLKEM768 (asimétrico) |
+| Integridad | SHA384 (hash) |
+| Certificado emitido por | Google Trust Services / WR2 |
+| Válido hasta | 27 Abril 2026 |
+| Firma del certificado | sha256WithRSAEncryption |
+
+## Cómo funciona el handshake TLS
+
+1. Cliente envía Client Hello — versiones TLS que soporta
+2. Servidor responde con su certificado y clave pública
+3. Se intercambia una clave de sesión usando asimétrico (X25519)
+4. A partir de ahí todo se cifra con AES-256 (simétrico/rápido)
+
+## Por qué se combinan ambos
+- Asimétrico resuelve el intercambio seguro de claves
+- Simétrico cifra los datos reales (38x más rápido)
+- Hash garantiza que nada fue alterado en tránsito
+
+## Conclusión
+TLS es la prueba real de que simétrico y asimétrico no
+compiten — se complementan. Cada uno resuelve lo que
+el otro no puede.
